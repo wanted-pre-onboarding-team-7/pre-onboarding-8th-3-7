@@ -1,5 +1,38 @@
 .container {
   background: white;
-  width: 80%;
-  height: 400px;
+  width: 40vw;
+  height: 55vh;
+  border-radius: 20px;
+}
+
+.recommentTitle {
+  height: 3%;
+  display: flex;
+  justify-content: start;
+  padding: 20px;
+  color: #7a8187;
+  font-size: 14px;
+}
+
+.keywordList {
+  height: 97%;
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px 0 20px;
+}
+
+.keywordWrapper {
+  display: flex;
+  margin-bottom: 30px;
+}
+
+.keywordWrapper:hover {
+  cursor: pointer;
+}
+
+.keyword,
+.searchIcon {
+  margin-right: 10px;
+  text-align: left;
+  font-size: 20px;
 }
