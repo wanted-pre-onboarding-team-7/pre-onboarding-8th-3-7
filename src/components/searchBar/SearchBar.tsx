@@ -1,6 +1,7 @@
 import styles from './SearchBar.module.css';
 import { getSearchSicks } from '../../api/index';
-import { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
+import { getItem, setItem } from '../../utils/localStorage';
 
 type TsearchBar = {
   setSickSearchs: Dispatch<SetStateAction<TsickSearchs>>;
@@ -10,13 +11,23 @@ type Tsick = { sickCd: string; sickNm: string };
 
 function SearchBar({ setSickSearchs }: TsearchBar) {
   let timer: ReturnType<typeof setTimeout>;
+
   const debounce = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (timer) {
-      clearTimeout(timer); // 0.5초 미만으로 입력이 주어질 경우 해당 timer를 clear(없앤다)한다.
-    }
+    const inputValue = e.target.value;
+    timer && clearTimeout(timer);
     timer = setTimeout(async () => {
-      const searchSicks = await getSearchSicks(e.target.value);
-      setSickSearchs(searchSicks);
+      const localSickData = getItem('sick') || {};
+      if (localSickData[inputValue]) {
+        setSickSearchs(inputValue !== '' ? localSickData[inputValue] : []);
+      } else {
+        const searchSicks = await getSearchSicks(inputValue);
+        setSickSearchs(searchSicks);
+        const newLocalStorageSicks = {
+          ...localSickData,
+          [inputValue]: searchSicks,
+        };
+        setItem('sick', newLocalStorageSicks);
+      }
     }, 500);
   };
 
