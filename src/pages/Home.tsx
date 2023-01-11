@@ -5,7 +5,8 @@ import SearchResult from '../components/searchResult/SearchResult';
 function Home() {
   return (
     <div className={styles.container}>
-      <span>국내 모든 임상시험 검색하고 온라인으로 참여하기</span>
+      <span className={styles.title}>국내 모든 임상시험 검색하고</span>
+      <span className={styles.title}>온라인으로 참여하기</span>
       <SearchBar />
       <SearchResult />
     </div>

@@ -1,5 +1,36 @@
 .container {
-  background: blue;
-  width: 80%;
-  height: 80px;
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 50px;
+  align-items: center;
+}
+
+.form {
+  font-size: 24px;
+}
+.searchLabel {
+  margin-left: 20px;
+  margin-right: 15px;
+}
+
+.searchInput {
+  border: none;
+  font-size: 24px;
+  width: 70vw;
+}
+
+.searchInput:focus {
+  outline: none;
+}
+
+.submitBtn {
+  background-color: #367ae1;
+  color: white;
+  border: none;
+  font-size: 18px;
+  padding: 25px;
+  padding-left: 30px;
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
 }

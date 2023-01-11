@@ -1,5 +1,5 @@
 .container {
-  background: skyblue;
+  background: #d0e8fe;
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -7,4 +7,9 @@
   justify-content: center;
   align-items: center;
   gap: 20px;
+}
+
+.title {
+  font-size: 36px;
+  font-weight: 800;
 }
