@@ -8,11 +8,17 @@ type Tsick = { sickCd: string; sickNm: string };
 
 function Home() {
   const [sickSearchs, setSickSearchs] = useState<TsickSearchs>([]);
+  const [searchFocusIdx, setSearchFocusIdx] = useState(-1);
+
   return (
     <div className={styles.container}>
       <span>국내 모든 임상시험 검색하고 온라인으로 참여하기</span>
-      <SearchBar setSickSearchs={setSickSearchs} />
-      <SearchResult sickSearchs={sickSearchs} />
+      <SearchBar
+        setSickSearchs={setSickSearchs}
+        setSearchFocusIdx={setSearchFocusIdx}
+        sickSearchs={sickSearchs}
+      />
+      <SearchResult sickSearchs={sickSearchs} searchFocusIdx={searchFocusIdx} />
     </div>
   );
 }

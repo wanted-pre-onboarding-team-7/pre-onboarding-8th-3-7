@@ -3,3 +3,6 @@
   width: 80%;
   height: 400px;
 }
+[data-focus='true'] {
+  background-color: #cecece;
+}

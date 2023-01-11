@@ -5,11 +5,17 @@ import { getItem, setItem } from '../../utils/localStorage';
 
 type TsearchBar = {
   setSickSearchs: Dispatch<SetStateAction<TsickSearchs>>;
+  setSearchFocusIdx: Dispatch<SetStateAction<number>>;
+  sickSearchs: TsickSearchs;
 };
 type TsickSearchs = Tsick[];
 type Tsick = { sickCd: string; sickNm: string };
 
-function SearchBar({ setSickSearchs }: TsearchBar) {
+function SearchBar({
+  setSickSearchs,
+  setSearchFocusIdx,
+  sickSearchs,
+}: TsearchBar) {
   let timer: ReturnType<typeof setTimeout>;
 
   const debounce = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,9 +37,28 @@ function SearchBar({ setSickSearchs }: TsearchBar) {
     }, 500);
   };
 
+  const getFocusIdx = (searchFocusIdx: number): number => {
+    const sickSearchsLength = sickSearchs.length;
+    return searchFocusIdx >= 0
+      ? searchFocusIdx % sickSearchsLength
+      : (searchFocusIdx + sickSearchsLength) % sickSearchsLength;
+  };
+
+  const keyupFocusSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    switch (e.key) {
+      case 'ArrowUp':
+        setSearchFocusIdx((idx) => getFocusIdx(idx - 1));
+        break;
+      case 'ArrowDown':
+        setSearchFocusIdx((idx) => getFocusIdx(idx + 1));
+        break;
+      default:
+    }
+  };
+
   return (
     <div className={styles.container}>
-      <input type="text" onChange={debounce} />
+      <input type="text" onChange={debounce} onKeyUp={keyupFocusSearch} />
     </div>
   );
 }
