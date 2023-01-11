@@ -1,5 +1,17 @@
 .container {
   background: white;
   width: 80%;
-  height: 400px;
+  min-height: 100px;
+  border-radius: 20px;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+.recommandKeyword {
+  color:grey;
+}
+.searchContainer {
+  padding:2em 2em;
+  width:100%;
+  border:1px solid;
 }
