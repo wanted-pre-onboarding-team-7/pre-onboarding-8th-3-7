@@ -8,14 +8,22 @@ import styles from './SearchResult.module.css';
 interface Result {
   sickCd: string;
   sickNm: string;
+  notBold?: Array<string>;
 }
 function SearchResult() {
   const inputValue = useRecoilValue<InputValue>(inputValueState);
   const [results, setResults] = useState([]);
 
-  const paintInputResults = useCallback(async (inputValue: InputValue) => {
-    const queryResults = await getSearchResults(inputValue);
-    setResults(queryResults.slice(0, MAX_RESULT_LEN));
+  const paintInputResults = useCallback(async (keyword: InputValue) => {
+    const queryResults = await getSearchResults(keyword);
+    const paintedResult = queryResults
+      .slice(0, MAX_RESULT_LEN)
+      .map((result: Result) => {
+        result.notBold = result.sickNm.split(keyword);
+        return result;
+      });
+    // const splitSickNm = queryResults.sickNm.split(keyword);
+    setResults(paintedResult);
   }, []);
 
   useEffect(() => {
@@ -36,7 +44,13 @@ function SearchResult() {
           {results.map((result: Result) => (
             <li className={styles.listItem} key={result.sickCd}>
               <span>🔍</span>
-              <span>{result.sickNm}</span>
+              {result.notBold && (
+                <div>
+                  <span>{result.notBold[0]}</span>
+                  <span className={styles.bold}>{inputValue}</span>
+                  <span>{result.notBold[1]}</span>
+                </div>
+              )}
             </li>
           ))}
         </ul>
