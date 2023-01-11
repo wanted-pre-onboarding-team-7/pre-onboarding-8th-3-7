@@ -1,5 +1,25 @@
 .container {
   background: white;
   width: 80%;
-  height: 400px;
+  height: max-content;
+  border-radius: 20px;
+  box-sizing: border-box;
+  padding: 15px 0;
+}
+
+.subTitle {
+  color: #787878;
+  font-size: 15px;
+  padding: 10px 20px;
+}
+
+.resultBox {
+  /* border: 1px solid black; */
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 20px;
+  cursor: pointer;
+}
+.resultBox span:first-child {
+  margin-right: 20px;
 }

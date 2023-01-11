@@ -8,3 +8,12 @@
   align-items: center;
   gap: 20px;
 }
+
+.title {
+  font-size: 30px;
+  line-height: 40px;
+  font-weight: 500;
+  margin-bottom: 50px;
+  width: 350px;
+  text-align: center;
+}

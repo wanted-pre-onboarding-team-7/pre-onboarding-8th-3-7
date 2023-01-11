@@ -1,5 +1,37 @@
 .container {
-  background: blue;
+  background: white;
   width: 80%;
-  height: 80px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 18px;
+  line-height: 60px;
+  border-radius: 30px;
+  overflow: hidden;
+}
+.searchBox {
+  display: flex;
+  margin-left: 20px;
+  width: 90%;
+}
+.searchBox label:first-child {
+  margin-right: 15px;
+}
+#searchInput {
+  border: none;
+  width: 100%;
+  font-size: 18px;
+}
+#searchInput:focus {
+  outline: none;
+}
+.searchBtn {
+  background-color: #0583d2;
+  border: none;
+  outline: none;
+  color: white;
+  height: 100%;
+  width: 90px;
+  text-align: center;
 }
