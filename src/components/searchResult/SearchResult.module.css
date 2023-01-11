@@ -8,3 +8,8 @@
   box-shadow: 0 5px 12px -7px rgba(0, 0, 0, 1);
   box-sizing: border-box;
 }
+
+.highlightingText {
+  font-weight: 700;
+  color: #000000;
+}
