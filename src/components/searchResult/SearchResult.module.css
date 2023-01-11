@@ -3,15 +3,14 @@
   width: 80%;
   min-height: 100px;
   border-radius: 20px;
-  display:flex;
+  display: flex;
   justify-content: center;
   align-items: center;
 }
 .recommandKeyword {
-  color:grey;
+  color: grey;
 }
 .searchContainer {
-  padding:2em 2em;
-  width:100%;
-  border:1px solid;
+  padding: 2em 2em;
+  width: 100%;
 }
