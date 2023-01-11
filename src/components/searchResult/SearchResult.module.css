@@ -14,3 +14,20 @@
   padding: 2em 2em;
   width: 100%;
 }
+
+.result{
+  cursor: pointer;
+  margin: 20px 0;
+  width:100%;
+  font-size:1.2rem;
+  display:flex;
+  justify-content:flex-start;
+  align-items: center;
+}
+.searchIcon {
+  height: 30px;
+  margin-right:15px;
+}
+.searchTitle {
+  padding-top:0.2em;
+}
