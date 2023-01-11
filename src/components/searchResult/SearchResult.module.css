@@ -1,6 +1,8 @@
 .container {
   background: white;
   width: 75vw;
+  display: flex;
+  flex-direction: column;
   border-radius: 20px;
   padding: 20px;
 }
@@ -8,12 +10,13 @@
 .title {
   color: gray;
   font-size: 12px;
+  margin-bottom: 15px;
 }
 
 .listItem {
   display: flex;
   gap: 10px;
-  padding-top: 15px;
+  padding-bottom: 15px;
   color: gray;
   font-size: 18px;
 }
