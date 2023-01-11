@@ -1,6 +1,7 @@
 .container {
-  background: skyblue;
+  background: #bfe3ff;
   width: 100vw;
+  min-width: 400px;
   height: 100vh;
   display: flex;
   flex-direction: column;
