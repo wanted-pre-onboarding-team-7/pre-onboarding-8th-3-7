@@ -1,4 +1,4 @@
-import axiosClient from '../cache/axiosClient';
+import axiosClient from './axiosClient';
 
 const baseUrl: string = 'http://localhost:4000';
 const client = new axiosClient(baseUrl);
