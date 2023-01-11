@@ -2,9 +2,9 @@
   background: #d0e8fe;
   width: 100vw;
   height: 100vh;
+  padding-top: 100px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   gap: 20px;
 }
