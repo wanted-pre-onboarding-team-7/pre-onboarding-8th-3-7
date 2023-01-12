@@ -25,7 +25,7 @@ function SearchResult({
   return (
     <div className={styles.container}>
       {recommendKeyword.length === 0 || keyword === '' ? (
-        <p className={styles.resultTitle}>검색어 없음</p>
+        <p className={styles.noResult}>검색어 없음</p>
       ) : (
         <>
           <h2 className={styles.resultTitle}>추천 검색어</h2>

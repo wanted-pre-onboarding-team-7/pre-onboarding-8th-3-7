@@ -7,6 +7,7 @@ import styles from './Home.module.css';
 function Home() {
   const [keyword, setKeyword] = useState('');
   const [recommendKeyword, setRecommendKeyword] = useState([]);
+  const [viewResult, setViewResult] = useState(false);
 
   const getRecommendKeyword = async (keyword: string) => {
     try {
@@ -16,7 +17,6 @@ function Home() {
       console.log(response);
       console.info('calling api');
       setRecommendKeyword(response.data);
-      //   return response.data;
     } catch (err) {
       console.error(err);
     }
@@ -29,7 +29,6 @@ function Home() {
   const onKeyPressKeyword = (e: React.KeyboardEvent<HTMLInputElement>) => {
     switch (e.key) {
       case 'ArrowDown':
-        // KeyEvent.ArrowDown();
         console.log('아래');
         setFocusIdx((idx) => idx + 1);
         if (focusRef.current?.childElementCount === focusIdx + 1)
@@ -57,15 +56,18 @@ function Home() {
         onKeyPressKeyword={onKeyPressKeyword}
         focusRef={focusRef}
         getRecommendKeyword={getRecommendKeyword}
+        setViewResult={setViewResult}
       />
-      <SearchResult
-        keyword={keyword}
-        recommendKeyword={recommendKeyword}
-        focusIdx={focusIdx}
-        setFocusIdx={setFocusIdx}
-        onKeyPressKeyword={onKeyPressKeyword}
-        focusRef={focusRef}
-      />
+      {viewResult && (
+        <SearchResult
+          keyword={keyword}
+          recommendKeyword={recommendKeyword}
+          focusIdx={focusIdx}
+          setFocusIdx={setFocusIdx}
+          onKeyPressKeyword={onKeyPressKeyword}
+          focusRef={focusRef}
+        />
+      )}
     </div>
   );
 }

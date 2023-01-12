@@ -10,6 +10,7 @@ interface IKeywords {
   onKeyPressKeyword: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   focusRef: React.RefObject<HTMLUListElement>;
   getRecommendKeyword: (keyword: string) => void;
+  setViewResult: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function SearchBar({
@@ -20,6 +21,7 @@ function SearchBar({
   onKeyPressKeyword,
   focusRef,
   getRecommendKeyword,
+  setViewResult,
 }: IKeywords) {
   const onChangeKeyword = (e: React.FormEvent<HTMLInputElement>) => {
     setKeyword(e.currentTarget.value);
@@ -48,6 +50,8 @@ function SearchBar({
         placeholder="질환명을 입력해 주세요"
         onChange={onChangeKeyword}
         onKeyUp={onKeyPressKeyword}
+        onFocus={() => setViewResult(true)}
+        onBlur={() => setViewResult(false)}
       ></input>
       <button type="button" className={styles.barBtn}></button>
     </div>
