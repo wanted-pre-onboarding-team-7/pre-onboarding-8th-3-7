@@ -1,8 +1,20 @@
 import { atom } from 'recoil';
+import { recoilPersist } from 'recoil-persist';
 import { IRecommendedList } from '../\btypes';
 
+const { persistAtom } = recoilPersist({
+  key: 'cacheSickList',
+  storage: localStorage,
+});
+
+export const stateSickListHistory = atom({
+  key: 'listHistory',
+  default: [] as IRecommendedList[],
+  effects: [persistAtom],
+});
+
 export const stateGetSearch = atom({
-  key: 'searchRecommended',
+  key: 'GetSearch',
   default: [] as IRecommendedList[],
 });
 
