@@ -23,11 +23,16 @@
 
 .keywordWrapper {
   display: flex;
-  margin-bottom: 30px;
+  padding: 10px 0 10px 0;
+}
+
+[data-focus='true'] {
+  background-color: #edf5f5;
 }
 
 .keywordWrapper:hover {
   cursor: pointer;
+  background-color: #edf5f5;
 }
 
 .keyword,
