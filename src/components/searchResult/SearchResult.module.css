@@ -26,6 +26,10 @@
 strong {
   font-weight: 500;
 }
+
+div[data-highlight='true'] {
+  background-color: #e8e8e8 !important;
+}
 .resultList:hover {
   background-color: #e8e8e8;
 }

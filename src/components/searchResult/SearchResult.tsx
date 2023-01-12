@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { IRecommendedList } from '../../\btypes';
 import {
   Searcheyword,
+  selectFocus,
   stateGetSearch,
   stateIsLoading,
 } from '../../store/atoms';
@@ -13,6 +14,8 @@ function SearchResult() {
   const getSearchList = useRecoilValue<IRecommendedList[]>(stateGetSearch);
   const [getSearchKeyword, setSearchKeyword] = useRecoilState(Searcheyword);
   const isLoading = useRecoilValue(stateIsLoading);
+  const selectIdx = useRecoilValue(selectFocus);
+
   const clickSickList = (sickName: string) => {
     setSearchKeyword(sickName);
   };
@@ -22,13 +25,14 @@ function SearchResult() {
       {!isLoading ? (
         <ul className={styles.resultBox}>
           {getSearchList.length ? (
-            getSearchList.map((sick) => (
+            getSearchList.map((sick, idx) => (
               <div
-                key={sick.sickCd}
+                key={idx}
                 className={styles.resultList}
                 onClick={() => {
                   clickSickList(sick.sickNm);
                 }}
+                data-highlight={idx === selectIdx}
               >
                 <span>🔎</span>
                 <span>{sick.sickNm.split(getSearchKeyword)[0]}</span>

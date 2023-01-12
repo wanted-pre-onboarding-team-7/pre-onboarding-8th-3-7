@@ -23,6 +23,11 @@ export const isInputFocus = atom({
   default: false,
 });
 
+export const selectFocus = atom({
+  key: 'selectFocus',
+  default: -1,
+});
+
 export const Searcheyword = atom({
   key: 'Searcheyword',
   default: '',

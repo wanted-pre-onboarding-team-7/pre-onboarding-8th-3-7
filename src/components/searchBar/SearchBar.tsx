@@ -8,6 +8,7 @@ import {
   isInputFocus,
   Searcheyword,
   stateSickListHistory,
+  selectFocus,
 } from '../../store/atoms';
 import useDebounce from '../../hooks/useDebounce';
 
@@ -16,11 +17,28 @@ function SearchBar() {
   const [keyword, setKeyword] = useState<string>('');
   const inputRef = useRef<any>();
   const setIsFocus = useSetRecoilState<boolean>(isInputFocus);
-  const setSickList = useSetRecoilState<IRecommendedList[]>(stateGetSearch);
+  const [getSickList, setSickList] =
+    useRecoilState<IRecommendedList[]>(stateGetSearch);
   const [searchKeyword, setSearchKeyword] = useRecoilState(Searcheyword);
   const [sickListHistory, setSickListHistory] =
     useRecoilState<IRecommendedList[]>(stateSickListHistory);
   const debounceValue = useDebounce(keyword);
+  const [selectIdx, setselectIdx] = useRecoilState<number>(selectFocus);
+
+  const onKeyupHandler = (evt: any) => {
+    switch (evt.key) {
+      case 'ArrowDown':
+        setselectIdx((prev) =>
+          prev < getSickList.length - 1 ? prev + 1 : prev,
+        );
+        inputRef.current.value = getSickList[selectIdx + 1].sickNm;
+        break;
+      case 'ArrowUp':
+        setselectIdx((prev) => (prev > 0 ? prev - 1 : 0));
+        inputRef.current.value = getSickList[selectIdx - 1].sickNm;
+        break;
+    }
+  };
 
   useEffect(() => {
     getSearchList();
@@ -38,7 +56,7 @@ function SearchBar() {
       );
       if (cacheSickList.length >= 7) {
         setSearchKeyword(keyword);
-        setSickList(cacheSickList);
+        setSickList(cacheSickList.slice(0, 7));
         return;
       } else {
         try {
@@ -66,6 +84,7 @@ function SearchBar() {
 
   const submitKeyword = (evt: React.MouseEvent<HTMLButtonElement>): void => {
     evt.preventDefault();
+    alert(inputRef.current.value + '에 대한 검색결과입니다.');
   };
 
   const onChangeKeyword = (evt: React.ChangeEvent<HTMLInputElement>) => {
@@ -88,6 +107,7 @@ function SearchBar() {
               setIsFocus(false);
             }, 100);
           }}
+          onKeyUp={onKeyupHandler}
           defaultValue={searchKeyword}
           ref={inputRef}
         />
