@@ -16,9 +16,14 @@
 .resultBox {
   /* border: 1px solid black; */
   width: 100%;
+  cursor: pointer;
+}
+.resultList {
   box-sizing: border-box;
   padding: 12px 20px;
-  cursor: pointer;
+}
+.resultList:hover {
+  background-color: #e8e8e8;
 }
 .resultBox span:first-child {
   margin-right: 20px;
