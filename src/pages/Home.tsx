@@ -4,18 +4,9 @@ import SearchBar from '../components/searchBar/SearchBar';
 import SearchResult from '../components/searchResult/SearchResult';
 import { useNetwork } from '../context/NetworkContext';
 import { cachingData } from '../utils/DataCaching';
+import useDebounce from '../hooks/useDebounce';
 
 let cachedRequest: (keyword: string) => Promise<any>;
-let timer: null | ReturnType<typeof setTimeout> = null;
-
-function debounce(callback: () => void, delay: number) {
-  if (timer) {
-    clearTimeout(timer);
-  }
-  timer = setTimeout(() => {
-    callback();
-  }, delay);
-}
 
 function Home() {
   const [isFocused, setIsfocused] = useState<boolean>(false);
@@ -38,15 +29,21 @@ function Home() {
     setIsfocused(false);
   };
 
+  const debouncedKeyword = useDebounce(keyword, 1500);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setKeyword(e.target.value);
-    debounce(async () => {
-      if (e.target.value === '') return;
-      const response = await cachedRequest(e.target.value);
-      setData(response);
-      console.info('calling api');
-    }, 450);
   };
+
+  const searchKeyword = async (keyword: string) => {
+    if (keyword === '') return;
+    const response = await cachedRequest(keyword);
+    setData(response);
+    console.info('calling api');
+  };
+  useEffect(() => {
+    searchKeyword(debouncedKeyword);
+  }, [debouncedKeyword]);
 
   useEffect(() => {
     cachedRequest = cachingData(requestData);
