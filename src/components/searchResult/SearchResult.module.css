@@ -21,7 +21,6 @@
 
 .keyword-list {
   height: 94%;
-  overflow: scroll;
 }
 
 .recent-keyword {
@@ -57,11 +56,8 @@
 }
 
 .tags-container {
-  flex: 1;
-}
-
-.tags {
   display: flex;
+  flex: 1;
 }
 
 .tag {
@@ -74,6 +70,7 @@
   margin-right: 10px;
   color: #1084eb;
   font-weight: 400;
+  cursor: pointer;
 }
 
 strong {
