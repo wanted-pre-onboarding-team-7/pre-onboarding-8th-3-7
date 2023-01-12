@@ -1,7 +1,7 @@
-import { sickName, sickState } from '../../store/atom';
+import { focusIndex, sickName, sickState } from '../../store/atom';
 import { useRecoilValue } from 'recoil';
 import styles from './SearchResult.module.css';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 
@@ -13,29 +13,7 @@ type SickType = {
 function SearchResult() {
   const recoilSickState = useRecoilValue<SickType[]>(sickState);
   const recoilSickName = useRecoilValue(sickName);
-  const [cursor, setCursor] = useState<number>(-1);
-
-  const keyboardNavigation = (e: KeyboardEvent) => {
-    if (e.key === 'ArrowDown') {
-      setCursor((prev) =>
-        prev < recoilSickState.length - 1 ? prev + 1 : prev,
-      );
-    }
-    if (e.key === 'ArrowUp') {
-      setCursor((prev) => (prev > 0 ? prev - 1 : 0));
-    }
-    if (e.key === 'Escape') {
-      setCursor(-1);
-    }
-    if (e.key === 'Enter') {
-      alert('결과화면으로 이동');
-      setCursor(-1);
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener('keydown', keyboardNavigation);
-  }, []);
+  const recoilFocusIndex = useRecoilValue(focusIndex);
 
   return (
     <div className={styles.container}>
@@ -46,7 +24,7 @@ function SearchResult() {
             <div
               className={styles.keywordWrapper}
               key={index}
-              data-focus={index === cursor}
+              data-focus={index === recoilFocusIndex}
               onClick={() => {
                 alert('결과화면으로 이동');
               }}
