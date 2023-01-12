@@ -1,5 +1,54 @@
 .container {
-  background: blue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 80%;
-  height: 80px;
+  height: 70px;
+  margin-bottom: 5px;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  width: 600px;
+  height: 100%;
+  border-radius: 50px;
+  overflow: hidden;
+  background: white;
+}
+
+.search-input {
+  width: 80%;
+  font-size: 17px;
+  padding: 8px 30px;
+  padding-top: 12px;
+  outline: none;
+  border: none;
+  background: none;
+
+  font-weight: 600;
+}
+
+.search-btn {
+  display: grid;
+  place-items: center;
+  width: 50px;
+  height: 50px;
+  background: #007be9;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+}
+
+.search-input::placeholder {
+  background-image: url(https://cdn1.iconfinder.com/data/icons/hawcons/32/698627-icon-111-search-256.png);
+  background-position: 13px left;
+  background-size: contain;
+  background-repeat: no-repeat;
+  color: rgba(128, 128, 128, 0.6);
+  text-indent: 32px;
+}
+
+.search-input:focus::-webkit-input-placeholder {
+  opacity: 0;
 }
