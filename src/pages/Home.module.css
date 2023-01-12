@@ -8,3 +8,8 @@
   align-items: center;
   gap: 20px;
 }
+
+.mainText {
+  font-size: 2.5rem;
+  font-weight: 700;
+}

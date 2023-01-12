@@ -1,5 +1,37 @@
 .container {
-  background: blue;
+  background: white;
+  display: flex;
+  align-items: center;
   width: 80%;
   height: 80px;
+  border-radius: 50em;
+}
+.searchContainer {
+  width: 85%;
+  display: flex;
+  align-items: center;
+}
+.searchIcon {
+  width: 5em;
+  height: 30px;
+}
+.searchInput {
+  width: 80%;
+  height: 30px;
+  border: none;
+  outline: none;
+  font-size: 1.8rem;
+}
+.searchButton {
+  cursor: pointer;
+  width: 15%;
+  height: 100%;
+  border-radius: 0 50em 50em 0;
+  background-color: blue;
+  z-index: 99999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  color: white;
 }
