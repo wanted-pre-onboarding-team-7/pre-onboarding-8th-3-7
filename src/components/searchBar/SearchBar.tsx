@@ -7,6 +7,7 @@ type TsearchBar = {
   setSickSearchs: Dispatch<SetStateAction<TsickSearchs>>;
   setSearchFocusIdx: Dispatch<SetStateAction<number>>;
   setIsSearching: Dispatch<SetStateAction<boolean>>;
+  setSearchValue: Dispatch<SetStateAction<string>>;
   sickSearchs: TsickSearchs;
 };
 type TsickSearchs = Tsick[];
@@ -17,6 +18,7 @@ function SearchBar({
   setSearchFocusIdx,
   setIsSearching,
   sickSearchs,
+  setSearchValue,
 }: TsearchBar) {
   let timer: ReturnType<typeof setTimeout>;
 
@@ -31,6 +33,7 @@ function SearchBar({
   const searchingSickData = async (inputValue: string) => {
     const localSickData = getItem('sick') || {};
     setIsSearching(true);
+    setSearchValue(inputValue);
     if (localSickData[inputValue]) {
       setSickSearchs(inputValue !== '' ? localSickData[inputValue] : []);
     } else {

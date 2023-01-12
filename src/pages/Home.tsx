@@ -10,6 +10,7 @@ function Home() {
   const [sickSearchs, setSickSearchs] = useState<TsickSearchs>([]);
   const [searchFocusIdx, setSearchFocusIdx] = useState(-1);
   const [isSearching, setIsSearching] = useState(false);
+  const [searchValue, setSearchValue] = useState('');
 
   return (
     <div className={styles.container}>
@@ -20,12 +21,14 @@ function Home() {
         setSickSearchs={setSickSearchs}
         setSearchFocusIdx={setSearchFocusIdx}
         setIsSearching={setIsSearching}
+        setSearchValue={setSearchValue}
         sickSearchs={sickSearchs}
       />
       <SearchResult
         sickSearchs={sickSearchs}
         searchFocusIdx={searchFocusIdx}
         isSearching={isSearching}
+        searchValue={searchValue}
       />
     </div>
   );

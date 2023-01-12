@@ -4,6 +4,7 @@ type TsearchResult = {
   sickSearchs: TsickSearchs;
   searchFocusIdx: number;
   isSearching: boolean;
+  searchValue: string;
 };
 type TsickSearchs = Tsick[];
 type Tsick = { sickCd: string; sickNm: string };
@@ -12,6 +13,7 @@ function SearchResult({
   sickSearchs,
   searchFocusIdx,
   isSearching,
+  searchValue,
 }: TsearchResult) {
   return (
     <div className={styles.container}>
@@ -25,7 +27,18 @@ function SearchResult({
               data-focus={searchFocusIdx === idx}
               className={styles.item}
             >
-              {sickNm}
+              {sickNm.split(searchValue).map((v, idx) =>
+                idx + 1 !== sickNm.length ? (
+                  <>
+                    <span>{v}</span>
+                    <span className={styles.bold}>{searchValue}</span>
+                  </>
+                ) : (
+                  <>
+                    <span>{v}</span>
+                  </>
+                ),
+              )}
             </div>
           ))}
           <div className={styles.padding}></div>

@@ -13,6 +13,10 @@
   padding: 20px 30px;
 }
 
+.bold {
+  color: blue;
+}
+
 .padding {
   padding: 10px 30px;
   font-size: 0.9em;
