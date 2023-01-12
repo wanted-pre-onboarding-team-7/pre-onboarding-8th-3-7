@@ -1,12 +1,16 @@
-import axios from 'axios';
+import { AxiosResponse } from 'axios';
 
-export default class NetworkServie {
-  baseURL: string;
-  constructor(baseURL: string) {
-    this.baseURL = baseURL;
+type HttpClient = {
+  get: (endpoint: string) => AxiosResponse;
+};
+
+export default class NetworkService {
+  httpClient: HttpClient;
+  constructor(httpClient: HttpClient) {
+    this.httpClient = httpClient;
   }
 
-  search(keyword: string) {
-    axios.get(`/sick?q=${keyword}`).then(console.log);
+  search(keyword: string): AxiosResponse {
+    return this.httpClient.get(`/sick?q=${keyword}`);
   }
 }

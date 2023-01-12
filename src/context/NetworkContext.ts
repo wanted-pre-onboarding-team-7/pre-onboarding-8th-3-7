@@ -1,7 +1,6 @@
 import { createContext, useContext } from 'react';
+import NetworkService from '../service/NetworkService';
 
-const NetworkContext = createContext(null);
+export const NetworkContext = createContext<NetworkService | null>(null);
 
 export const useNetwork = () => useContext(NetworkContext);
-
-export {};

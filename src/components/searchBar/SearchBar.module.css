@@ -37,6 +37,7 @@
   background: #007be9;
   border-radius: 50px;
   border: none;
+  cursor: pointer;
 }
 
 .search-input::placeholder {
