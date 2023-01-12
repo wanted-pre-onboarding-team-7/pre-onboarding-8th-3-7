@@ -21,6 +21,10 @@
 .resultList {
   box-sizing: border-box;
   padding: 12px 20px;
+  font-weight: 300;
+}
+strong {
+  font-weight: 500;
 }
 .resultList:hover {
   background-color: #e8e8e8;
