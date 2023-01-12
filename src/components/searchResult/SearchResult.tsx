@@ -15,22 +15,22 @@ function SearchResult({
 }: TsearchResult) {
   return (
     <div className={styles.container}>
-      {isSearching && <div id={'recommand'}>추천 검색어</div>}
-      {isSearching && sickSearchs.length === 0 && (
+      {isSearching && <div className={styles.padding}>추천 검색어</div>}
+      {isSearching && sickSearchs.length === 0 && <div>검색어 없음</div>}
+      {isSearching && (
         <>
-          <div>검색어 없음</div>
+          {sickSearchs.map(({ sickCd, sickNm }, idx) => (
+            <div
+              key={sickCd}
+              data-focus={searchFocusIdx === idx}
+              className={styles.item}
+            >
+              {sickNm}
+            </div>
+          ))}
+          <div className={styles.padding}></div>
         </>
       )}
-      {isSearching &&
-        sickSearchs.map(({ sickCd, sickNm }, idx) => (
-          <div
-            key={sickCd}
-            data-focus={searchFocusIdx === idx}
-            id={'searchItem'}
-          >
-            {sickNm}
-          </div>
-        ))}
     </div>
   );
 }

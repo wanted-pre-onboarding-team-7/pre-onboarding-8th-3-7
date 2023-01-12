@@ -6,12 +6,14 @@
 
 [data-focus='true'] {
   background-color: #cecece;
+  overflow: hidden;
 }
 
-.container div {
+.item {
   padding: 20px 30px;
 }
 
-.container #recommand {
-  font-size: 0.5em;
+.padding {
+  padding: 10px 30px;
+  font-size: 0.9em;
 }
