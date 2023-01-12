@@ -24,7 +24,7 @@ function SearchResult({
 }: IKeywords) {
   return (
     <div className={styles.container}>
-      {recommendKeyword.length === 0 ? (
+      {recommendKeyword.length === 0 || keyword === '' ? (
         <p className={styles.resultTitle}>검색어 없음</p>
       ) : (
         <>

@@ -28,8 +28,10 @@ function SearchBar({
   const debouncedKeyword = useDebounce(keyword);
 
   const searchItems = async (keyword: string) => {
-    // API Call
     if (keyword) {
+      if (keyword.trim() === '') {
+        return;
+      }
       getRecommendKeyword(keyword);
     }
   };
