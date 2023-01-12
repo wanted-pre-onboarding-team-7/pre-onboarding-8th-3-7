@@ -1,18 +1,6 @@
+import { IApi } from '../../utils/inerface';
+import { IKeywords } from '../../utils/inerface';
 import styles from './SearchResult.module.css';
-
-interface IKeywords {
-  keyword: string;
-  recommendKeyword: Imap[];
-  focusIdx: number;
-  setFocusIdx: React.Dispatch<React.SetStateAction<number>>;
-  onKeyPressKeyword: (e: React.KeyboardEvent<HTMLInputElement>) => void;
-  focusRef: React.RefObject<HTMLUListElement>;
-}
-
-interface Imap {
-  sickNm: string;
-  sickCd: string;
-}
 
 function SearchResult({
   keyword,
@@ -24,15 +12,15 @@ function SearchResult({
 }: IKeywords) {
   return (
     <div className={styles.container}>
-      {recommendKeyword.length === 0 || keyword === '' ? (
+      {recommendKeyword?.length === 0 || keyword === '' ? (
         <p className={styles.noResult}>검색어 없음</p>
       ) : (
         <>
           <h2 className={styles.resultTitle}>추천 검색어</h2>
           <ul ref={focusRef}>
-            {recommendKeyword
+            {recommendKeyword!
               .filter((_, i) => i < 9)
-              .map((i: Imap, idx) => {
+              .map((i: IApi, idx) => {
                 return i.sickNm.includes(keyword) ? (
                   <li
                     key={idx}

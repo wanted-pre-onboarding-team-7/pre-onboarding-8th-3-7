@@ -1,17 +1,7 @@
 import { useEffect } from 'react';
 import useDebounce from '../../hooks/useDebounce';
+import { IKeywords } from '../../utils/inerface';
 import styles from './SearchBar.module.css';
-
-interface IKeywords {
-  keyword: string;
-  setKeyword: React.Dispatch<React.SetStateAction<string>>;
-  focusIdx: number;
-  setFocusIdx: React.Dispatch<React.SetStateAction<number>>;
-  onKeyPressKeyword: (e: React.KeyboardEvent<HTMLInputElement>) => void;
-  focusRef: React.RefObject<HTMLUListElement>;
-  getRecommendKeyword: (keyword: string) => void;
-  setViewResult: React.Dispatch<React.SetStateAction<boolean>>;
-}
 
 function SearchBar({
   keyword,
@@ -24,7 +14,7 @@ function SearchBar({
   setViewResult,
 }: IKeywords) {
   const onChangeKeyword = (e: React.FormEvent<HTMLInputElement>) => {
-    setKeyword(e.currentTarget.value);
+    setKeyword!(e.currentTarget.value);
   };
 
   const debouncedKeyword = useDebounce(keyword);
@@ -34,7 +24,7 @@ function SearchBar({
       if (keyword.trim() === '') {
         return;
       }
-      getRecommendKeyword(keyword);
+      getRecommendKeyword!(keyword);
     }
   };
 
@@ -50,8 +40,8 @@ function SearchBar({
         placeholder="질환명을 입력해 주세요"
         onChange={onChangeKeyword}
         onKeyUp={onKeyPressKeyword}
-        onFocus={() => setViewResult(true)}
-        onBlur={() => setViewResult(false)}
+        onFocus={() => setViewResult!(true)}
+        onBlur={() => setViewResult!(false)}
       ></input>
       <button type="button" className={styles.barBtn}></button>
     </div>
