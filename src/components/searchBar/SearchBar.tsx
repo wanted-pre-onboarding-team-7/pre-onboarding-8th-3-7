@@ -5,10 +5,12 @@ type SearchProps = {
   onFocus: (event: React.FocusEvent<HTMLInputElement>) => void;
   onBlur: (event: React.FocusEvent<HTMLInputElement>) => void;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 };
 
-function SearchBar({ onFocus, onBlur, onChange }: SearchProps) {
+function SearchBar({ onFocus, onBlur, onChange, onKeyDown }: SearchProps) {
   //TODO: 검색창 기능 구현
+
   return (
     <div className={styles.container}>
       <div className={styles['input-container']}>
@@ -19,6 +21,7 @@ function SearchBar({ onFocus, onBlur, onChange }: SearchProps) {
           onFocus={onFocus}
           onBlur={onBlur}
           onChange={onChange}
+          onKeyDown={onKeyDown}
         />
         <button className={styles['search-btn']}>
           <svg

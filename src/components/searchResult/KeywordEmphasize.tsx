@@ -10,6 +10,7 @@ type Props = {
 export const KeywordEmphasize = ({ keyword, sickNm, isFocus }: Props) => {
   // const searchResult = sickNm.split(keyword);
   const resultStr = sickNm.replace(keyword, `<strong>${keyword}</strong>`);
+
   return (
     <li
       className={`${styles['recent-keyword']} ${

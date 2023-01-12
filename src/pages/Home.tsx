@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styles from './Home.module.css';
 import SearchBar from '../components/searchBar/SearchBar';
 import SearchResult from '../components/searchResult/SearchResult';
@@ -22,6 +22,26 @@ function Home() {
   const [keyword, setKeyword] = useState<string>('');
   const [data, setData] = useState([]);
   const Api = useNetwork();
+  const ulRef = useRef<HTMLUListElement>(null);
+  const [currentIndex, setCurrentIndex] = useState<number>(-1);
+
+  const handleKeyArrow = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (data.length > 0) {
+      switch (e.key) {
+        case 'ArrowDown': //키보드 아래 키
+          setCurrentIndex(currentIndex + 1);
+          if (ulRef.current?.childElementCount === currentIndex + 1)
+            setCurrentIndex(0);
+          break;
+        case 'ArrowUp': //키보드 위에 키
+          setCurrentIndex(currentIndex - 1);
+          if (currentIndex <= 0) {
+            setCurrentIndex(ulRef.current!.childElementCount - 1);
+          }
+          break;
+      }
+    }
+  };
 
   const requestData = async (keyword: string) => {
     const response = await Api!.search(keyword);
@@ -67,8 +87,16 @@ function Home() {
           onFocus={handleFocused}
           onBlur={handleBlur}
           onChange={handleChange}
+          onKeyDown={handleKeyArrow}
         />
-        {isFocused && <SearchResult keyword={keyword} data={data} />}
+        {isFocused && (
+          <SearchResult
+            keyword={keyword}
+            data={data}
+            ulRef={ulRef}
+            currentIndex={currentIndex}
+          />
+        )}
       </div>
     </div>
   );
