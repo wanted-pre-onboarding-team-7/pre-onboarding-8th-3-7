@@ -1,6 +1,6 @@
 import styles from './SearchBar.module.css';
 import searchIcon from '../../images/searchIcon.svg';
-function SearchBar({ word, onChangeWord,changeKey }) {
+function SearchBar({ word, onChangeWord, changeKey }) {
   //TODO: 검색창 기능 구현
   return (
     <div className={styles.container}>

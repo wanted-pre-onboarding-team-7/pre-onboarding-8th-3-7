@@ -11,7 +11,7 @@ class axiosClient {
   async get(url: string) {
     const { data } = await this.instance.get(url);
     this.count++;
-    console.log("calling api:"+this.count)
+    console.log('calling api:' + this.count);
     return data;
   }
 }

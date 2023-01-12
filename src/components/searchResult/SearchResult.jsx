@@ -1,15 +1,20 @@
 import styles from './SearchResult.module.css';
 import searchIcon from '../../images/searchIcon.svg';
 
-function SearchResult({ data,position }) {
+function SearchResult({ data, position }) {
   //TODO: 검색 결과 기능 구현
   return (
     <div className={styles.container}>
       <div className={styles.searchContainer}>
-        <span className={styles.recommandKeyword}>추천 검색어</span>
+        <span className={styles.recommandKeyword}>{data.length>0?"추천 검색어":"검색 결과 없음"}</span>
         {data?.map((element, index) => {
           return (
-            <div className={position===index?styles.borderContext:styles.result} key={index}>
+            <div
+              className={
+                position === index ? styles.borderContext : styles.result
+              }
+              key={index}
+            >
               <img className={styles.searchIcon} src={searchIcon} alt="" />
               <div
                 className={styles.searchTitle}
