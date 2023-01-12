@@ -1,0 +1,19 @@
+.listItem {
+  display: flex;
+  gap: 10px;
+  padding-bottom: 15px;
+  color: gray;
+  font-size: 18px;
+}
+
+.selectedListItem {
+  display: flex;
+  gap: 10px;
+  padding-bottom: 15px;
+  color: blue;
+  font-size: 18px;
+}
+
+.bold {
+  font-weight: bold;
+}

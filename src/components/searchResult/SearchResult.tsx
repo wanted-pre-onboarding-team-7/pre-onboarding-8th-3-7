@@ -3,14 +3,11 @@ import { useRecoilValue } from 'recoil';
 import { InputValue, inputValueState } from '../../store/atom';
 import { getSearchResults } from '../../utils/apiFn';
 import { MAX_RESULT_LEN } from '../../utils/constants';
+import { Result, ResultPainted } from '../../utils/type';
+import ResultItem from './ResultItem';
 import styles from './SearchResult.module.css';
 
-interface Result {
-  sickCd: string;
-  sickNm: string;
-  notBold?: Array<string>;
-}
-function SearchResult() {
+const SearchResult = () => {
   const inputValue = useRecoilValue<InputValue>(inputValueState);
   const [results, setResults] = useState([]);
 
@@ -19,10 +16,11 @@ function SearchResult() {
     const paintedResult = queryResults
       .slice(0, MAX_RESULT_LEN)
       .map((result: Result) => {
+        result.bold = keyword;
         result.notBold = result.sickNm.split(keyword);
         return result;
       });
-    // const splitSickNm = queryResults.sickNm.split(keyword);
+
     setResults(paintedResult);
   }, []);
 
@@ -40,23 +38,14 @@ function SearchResult() {
       {results.length === 0 ? (
         <span>검색어 없음</span>
       ) : (
-        <ul role="listbox">
-          {results.map((result: Result) => (
-            <li className={styles.listItem} key={result.sickCd}>
-              <span>🔍</span>
-              {result.notBold && (
-                <div>
-                  <span>{result.notBold[0]}</span>
-                  <span className={styles.bold}>{inputValue}</span>
-                  <span>{result.notBold[1]}</span>
-                </div>
-              )}
-            </li>
+        <ul role="listbox" id="search-results">
+          {results.map((result: ResultPainted, index: number) => (
+            <ResultItem key={result.sickCd} result={result} index={index + 1} />
           ))}
         </ul>
       )}
     </div>
   );
-}
+};
 
 export default SearchResult;

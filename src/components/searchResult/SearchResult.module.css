@@ -12,15 +12,3 @@
   font-size: 12px;
   margin-bottom: 15px;
 }
-
-.listItem {
-  display: flex;
-  gap: 10px;
-  padding-bottom: 15px;
-  color: gray;
-  font-size: 18px;
-}
-
-.bold {
-  font-weight: bold;
-}
