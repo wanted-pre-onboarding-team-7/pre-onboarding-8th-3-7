@@ -31,7 +31,7 @@ export const KeywordEmphasize = ({ keyword, sickNm, isFocus }: Props) => {
       {searchResult[1]} */}
       <div>
         {sickNm.split(keyword).map((v, idx) =>
-          idx + 1 !== sickNm.length ? (
+          idx + 1 !== sickNm.split(keyword).length ? (
             <>
               <span>{v}</span>
               <strong>{keyword}</strong>
