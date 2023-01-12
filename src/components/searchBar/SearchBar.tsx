@@ -8,20 +8,21 @@ function SearchBar() {
   const [recoilSickName, setRecoilSickName] = useRecoilState(sickName);
   const setRecoilSickState = useSetRecoilState(sickState);
 
-  const changeSickName = (e: ChangeEvent<HTMLInputElement>) => {
+  const changeSickName = async (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setRecoilSickName(value);
+    const response = await getSickList(value);
+    if (response.length >= 7) {
+      response.length = 7;
+    }
+    setRecoilSickState(response);
   };
 
-  const clickSearchButton = async (e: React.MouseEvent) => {
-    try {
-      const response = await getSickList(recoilSickName);
-      if (response.length >= 7) {
-        response.length = 7;
-        setRecoilSickState(response);
-      }
-    } catch {
-      alert('데이터를 불러오지 못했습니다. 관리자에게 문의해주세요.');
+  const clickSearchButton = () => {
+    if (recoilSickName === '') {
+      alert('검색어를 입력해주세요');
+    } else {
+      alert('결과화면으로 이동');
     }
   };
 
