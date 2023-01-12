@@ -2,11 +2,30 @@
   background: white;
   width: 80%;
   height: 400px;
-  padding: 25px;
+  padding: 25px 0;
   border-radius: 15px;
   color: #6a737b;
   box-shadow: 0 5px 12px -7px rgba(0, 0, 0, 1);
   box-sizing: border-box;
+}
+
+.resultTitle {
+  font-size: 14px;
+  padding: 0 0 7px 25px;
+}
+
+.resultItem {
+  color: rgb(82, 81, 81);
+  padding: 11px 25px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.hover {
+  background-color: #eef1f4;
+}
+.resultItem:hover {
+  background-color: #eef1f4;
 }
 
 .highlightingText {

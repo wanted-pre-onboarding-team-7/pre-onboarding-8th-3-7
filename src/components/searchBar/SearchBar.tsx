@@ -2,13 +2,14 @@ import styles from './SearchBar.module.css';
 interface IKeywords {
   keyword: string;
   setKeyword: React.Dispatch<React.SetStateAction<string>>;
+  debounce: () => void;
 }
 
-function SearchBar({ keyword, setKeyword }: IKeywords) {
+function SearchBar({ keyword, setKeyword, debounce }: IKeywords) {
   const onChangeKeyword = (e: React.FormEvent<HTMLInputElement>) => {
     setKeyword(e.currentTarget.value);
+    debounce();
   };
-  console.log(keyword);
 
   return (
     <div className={styles.container}>

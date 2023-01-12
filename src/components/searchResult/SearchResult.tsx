@@ -14,22 +14,24 @@ function SearchResult({ keyword, recommendKeyword }: IKeywords) {
   return (
     <div className={styles.container}>
       {recommendKeyword.length === 0 ? (
-        <p>검색어 없음</p>
+        <p className={styles.resultTitle}>검색어 없음</p>
       ) : (
         <>
-          <h2>추천 검색어</h2>
+          <h2 className={styles.resultTitle}>추천 검색어</h2>
           <ul>
             {recommendKeyword
-              .filter((_, i) => i < 10)
+              .filter((_, i) => i < 9)
               .map((i: Imap) => {
                 return i.sickNm.includes(keyword) ? (
-                  <li key={i.sickCd}>
-                    {i.sickNm.split(keyword)[0]}
+                  <li key={i.sickCd} className={styles.resultItem}>
+                    🔍 {i.sickNm.split(keyword)[0]}
                     <span className={styles.highlightingText}>{keyword}</span>
                     {i.sickNm.replace(i.sickNm.split(keyword)[0] + keyword, '')}
                   </li>
                 ) : (
-                  <li key={i.sickCd}>{i.sickNm}</li>
+                  <li key={i.sickCd} className={styles.resultItem}>
+                    🔍 {i.sickNm}
+                  </li>
                 );
               })}
           </ul>
