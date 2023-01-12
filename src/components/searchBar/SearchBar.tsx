@@ -6,6 +6,7 @@ import { getItem, setItem } from '../../utils/localStorage';
 type TsearchBar = {
   setSickSearchs: Dispatch<SetStateAction<TsickSearchs>>;
   setSearchFocusIdx: Dispatch<SetStateAction<number>>;
+  setIsSearching: Dispatch<SetStateAction<boolean>>;
   sickSearchs: TsickSearchs;
 };
 type TsickSearchs = Tsick[];
@@ -14,6 +15,7 @@ type Tsick = { sickCd: string; sickNm: string };
 function SearchBar({
   setSickSearchs,
   setSearchFocusIdx,
+  setIsSearching,
   sickSearchs,
 }: TsearchBar) {
   let timer: ReturnType<typeof setTimeout>;
@@ -23,10 +25,11 @@ function SearchBar({
     timer && clearTimeout(timer);
     timer = setTimeout(async () => {
       const localSickData = getItem('sick') || {};
+      setIsSearching(true);
       if (localSickData[inputValue]) {
         setSickSearchs(inputValue !== '' ? localSickData[inputValue] : []);
       } else {
-        const searchSicks = await getSearchSicks(inputValue);
+        const searchSicks = await getSearchSicks(inputValue, 7);
         setSickSearchs(searchSicks);
         const newLocalStorageSicks = {
           ...localSickData,
@@ -56,9 +59,18 @@ function SearchBar({
     }
   };
 
+  const focusOut = () => {
+    setIsSearching(false);
+  };
+
   return (
     <div className={styles.container}>
-      <input type="text" onChange={debounce} onKeyUp={keyupFocusSearch} />
+      <input
+        type="text"
+        onChange={debounce}
+        onKeyUp={keyupFocusSearch}
+        onBlur={focusOut}
+      />
     </div>
   );
 }

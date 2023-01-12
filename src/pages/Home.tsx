@@ -9,6 +9,7 @@ type Tsick = { sickCd: string; sickNm: string };
 function Home() {
   const [sickSearchs, setSickSearchs] = useState<TsickSearchs>([]);
   const [searchFocusIdx, setSearchFocusIdx] = useState(-1);
+  const [isSearching, setIsSearching] = useState(false);
 
   return (
     <div className={styles.container}>
@@ -16,9 +17,14 @@ function Home() {
       <SearchBar
         setSickSearchs={setSickSearchs}
         setSearchFocusIdx={setSearchFocusIdx}
+        setIsSearching={setIsSearching}
         sickSearchs={sickSearchs}
       />
-      <SearchResult sickSearchs={sickSearchs} searchFocusIdx={searchFocusIdx} />
+      <SearchResult
+        sickSearchs={sickSearchs}
+        searchFocusIdx={searchFocusIdx}
+        isSearching={isSearching}
+      />
     </div>
   );
 }
