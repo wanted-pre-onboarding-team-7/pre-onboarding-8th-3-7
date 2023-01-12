@@ -23,10 +23,8 @@ function useSearch() {
   };
 
   const result = (value) => {
-    console.log(value);
     if (value === '') return setList([]);
     if (storage.canCached(value)) {
-      console.log(storage.canCached(value));
       setList(JSON.parse(storage.getCache(value)));
     } else {
       getResult(value).then((data) => {

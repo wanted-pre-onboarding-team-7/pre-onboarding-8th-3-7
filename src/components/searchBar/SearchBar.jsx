@@ -1,6 +1,6 @@
 import styles from './SearchBar.module.css';
 import searchIcon from '../../images/searchIcon.svg';
-function SearchBar({ word, onChangeWord }) {
+function SearchBar({ word, onChangeWord,changeKey }) {
   //TODO: 검색창 기능 구현
   return (
     <div className={styles.container}>
@@ -12,6 +12,7 @@ function SearchBar({ word, onChangeWord }) {
           placeholder="질환명을 입력해 주세요."
           onChange={onChangeWord}
           value={word}
+          onKeyDown={changeKey}
         />
       </div>
       <div className={styles.searchButton}>검색</div>
