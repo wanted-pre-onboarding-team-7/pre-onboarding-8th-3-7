@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from './SearchBar.module.css';
 import { getSearchRecommended } from '../../api/api';
 import { IRecommendedList } from '../../\btypes';
@@ -9,15 +9,20 @@ import useDebounce from '../../hooks/useDebounce';
 function SearchBar() {
   //TODO: 검색창 기능 구현
   const [keyword, setKeyword] = useState<string>('');
-  const [isFocus, setIsFocus] = useRecoilState<boolean>(isInputFocus);
-  const setSearchKeyword = useSetRecoilState(Searcheyword);
-  const setRecommendedList =
-    useSetRecoilState<IRecommendedList[]>(stateGetSearch);
+  const inputRef = useRef<any>();
+  const setIsFocus = useSetRecoilState<boolean>(isInputFocus);
+  const setSickList = useSetRecoilState<IRecommendedList[]>(stateGetSearch);
+  const [searchKeyword, setSearchKeyword] = useRecoilState(Searcheyword);
   const debounceValue = useDebounce(keyword);
 
   useEffect(() => {
     getSearchList();
   }, [debounceValue]);
+
+  useEffect(() => {
+    setKeyword(searchKeyword);
+    inputRef.current.value = searchKeyword;
+  }, [searchKeyword]);
 
   const getSearchList = async () => {
     if (keyword) {
@@ -25,13 +30,13 @@ function SearchBar() {
         const res = await getSearchRecommended(keyword);
         console.info('calling api');
         const sickData = res.data.slice(0, 7);
-        setRecommendedList(sickData);
+        setSickList(sickData);
         setSearchKeyword(keyword);
       } catch (e) {
         // TODO: ERROR
       }
     } else {
-      setRecommendedList([]);
+      setSickList([]);
     }
   };
 
@@ -55,8 +60,12 @@ function SearchBar() {
             setIsFocus(true);
           }}
           onBlur={() => {
-            setIsFocus(false);
+            setTimeout(() => {
+              setIsFocus(false);
+            }, 100);
           }}
+          defaultValue={searchKeyword}
+          ref={inputRef}
         />
       </div>
       <button
