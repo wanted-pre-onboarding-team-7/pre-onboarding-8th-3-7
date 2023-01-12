@@ -15,3 +15,8 @@ export const Searcheyword = atom({
   key: 'Searcheyword',
   default: '',
 });
+
+export const stateIsLoading = atom({
+  key: 'isLoading',
+  default: false,
+});
