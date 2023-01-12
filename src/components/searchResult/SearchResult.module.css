@@ -32,6 +32,10 @@
   margin-bottom: 10px;
 }
 
+.hovered {
+  background-color: rgba(128, 128, 128, 0.1);
+}
+
 .recent-keyword:hover {
   cursor: pointer;
   background-color: rgba(128, 128, 128, 0.1);
@@ -73,5 +77,5 @@
 }
 
 strong {
-  font-weight: 1000;
+  font-weight: bold;
 }
