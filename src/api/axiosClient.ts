@@ -1,8 +1,9 @@
 import axios from 'axios';
+import { HttpClient } from '../utils/types';
 
-class axiosClient {
+class AxiosClient implements HttpClient {
   instance;
-  count: number;
+  count;
   constructor(baseURL: string) {
     this.instance = axios.create({ baseURL });
     this.count = 0;
@@ -13,12 +14,12 @@ class axiosClient {
       return response.data.slice(0, 7);
     });
   }
-  get(url: string) {
-    const res = this.instance.get(url);
+  get(keyword: string) {
+    const res = this.instance.get(`?q=${keyword}`);
     this.count++;
     console.info('calling api:' + this.count);
     return res;
   }
 }
 
-export default axiosClient;
+export default AxiosClient;
