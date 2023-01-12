@@ -8,8 +8,6 @@ type Props = {
 };
 
 export const KeywordEmphasize = ({ keyword, sickNm, isFocus }: Props) => {
-  // const searchResult = sickNm.split(keyword);
-  const resultStr = sickNm.replace(keyword, `<strong>${keyword}</strong>`);
   return (
     <li
       className={`${styles['recent-keyword']} ${
@@ -31,7 +29,20 @@ export const KeywordEmphasize = ({ keyword, sickNm, isFocus }: Props) => {
       {/* {searchResult[0]}
       {<strong>{keyword}</strong>}
       {searchResult[1]} */}
-      <div dangerouslySetInnerHTML={{ __html: resultStr }}></div>
+      <div>
+        {sickNm.split(keyword).map((v, idx) =>
+          idx + 1 !== sickNm.length ? (
+            <>
+              <span>{v}</span>
+              <strong>{keyword}</strong>
+            </>
+          ) : (
+            <>
+              <span>{v}</span>
+            </>
+          ),
+        )}
+      </div>
     </li>
   );
 };
