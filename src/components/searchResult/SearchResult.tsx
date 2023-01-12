@@ -19,13 +19,16 @@ function SearchResult() {
           recoilSickState.map((sick, index) => (
             <div
               className={styles.keywordWrapper}
+              key={index}
               onClick={() => {
                 alert('결과화면으로 이동');
               }}
             >
               <div className={styles.searchIcon}>🔍</div>
-              <li className={styles.keyword} key={index}>
-                {sick.sickNm}
+              <li className={styles.keyword}>
+                {sick.sickNm.split(recoilSickName)[0]}
+                <em className={styles.highlightKeyword}>{recoilSickName}</em>
+                {sick.sickNm.split(recoilSickName)[1]}
               </li>
             </div>
           ))
