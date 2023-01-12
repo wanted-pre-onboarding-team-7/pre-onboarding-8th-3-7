@@ -65,6 +65,7 @@ function SearchBar({
 
   return (
     <div className={styles.container}>
+      <div>🔍</div>
       <input
         type="text"
         onChange={debounce}
