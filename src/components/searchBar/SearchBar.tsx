@@ -23,21 +23,33 @@ function SearchBar({
   const debounce = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
     timer && clearTimeout(timer);
-    timer = setTimeout(async () => {
-      const localSickData = getItem('sick') || {};
-      setIsSearching(true);
-      if (localSickData[inputValue]) {
-        setSickSearchs(inputValue !== '' ? localSickData[inputValue] : []);
-      } else {
-        const searchSicks = await getSearchSicks(inputValue, 7);
-        setSickSearchs(searchSicks);
-        const newLocalStorageSicks = {
-          ...localSickData,
-          [inputValue]: searchSicks,
-        };
-        setItem('sick', newLocalStorageSicks);
-      }
+    timer = setTimeout(() => {
+      searchingSickData(inputValue);
     }, 500);
+  };
+
+  const searchingSickData = async (inputValue: string) => {
+    const localSickData = getItem('sick') || {};
+    setIsSearching(true);
+    if (localSickData[inputValue]) {
+      setSickSearchs(inputValue !== '' ? localSickData[inputValue] : []);
+    } else {
+      const searchSicks = await getSearchSicks(inputValue, 7);
+      setSickSearchs(searchSicks);
+      addSickCacheData(localSickData, inputValue, searchSicks);
+    }
+  };
+
+  const addSickCacheData = (
+    localSickData: any,
+    inputValue: string,
+    searchSicks: TsickSearchs,
+  ) => {
+    const newLocalStorageSicks = {
+      ...localSickData,
+      [inputValue]: searchSicks,
+    };
+    setItem('sick', newLocalStorageSicks);
   };
 
   const getFocusIdx = (searchFocusIdx: number): number => {
@@ -61,6 +73,7 @@ function SearchBar({
 
   const focusOut = () => {
     setIsSearching(false);
+    setSearchFocusIdx(-1);
   };
 
   return (
