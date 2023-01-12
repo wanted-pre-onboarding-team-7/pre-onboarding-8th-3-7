@@ -7,32 +7,19 @@ import styles from './Home.module.css';
 function Home() {
   const [keyword, setKeyword] = useState('');
   const [recommendKeyword, setRecommendKeyword] = useState([]);
-  console.log(keyword);
 
-  let timer: any;
-
-  const debounce = () => {
-    if (timer) {
-      clearTimeout(timer);
+  const getRecommendKeyword = async (keyword: string) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:4000/sick?q=${keyword}`,
+      );
+      console.log(response);
+      console.info('calling api');
+      setRecommendKeyword(response.data);
+      //   return response.data;
+    } catch (err) {
+      console.error(err);
     }
-    timer = setTimeout(() => {
-      if (keyword) {
-        const getRecommendKeyword = async (keyword: string) => {
-          try {
-            const response = await axios.get(
-              `http://localhost:4000/sick?q=${keyword}`,
-            );
-            console.log(response);
-            console.info('calling api');
-            setRecommendKeyword(response.data);
-            //   return response.data;
-          } catch (err) {
-            console.error(err);
-          }
-        };
-        getRecommendKeyword(keyword);
-      }
-    }, 700);
   };
 
   //키이벤트용
@@ -64,12 +51,12 @@ function Home() {
       <SearchBar
         keyword={keyword}
         setKeyword={setKeyword}
-        debounce={debounce}
         //여기부터
         focusIdx={focusIdx}
         setFocusIdx={setFocusIdx}
         onKeyPressKeyword={onKeyPressKeyword}
         focusRef={focusRef}
+        getRecommendKeyword={getRecommendKeyword}
       />
       <SearchResult
         keyword={keyword}
