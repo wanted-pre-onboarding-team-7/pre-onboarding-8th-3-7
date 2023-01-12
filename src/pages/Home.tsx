@@ -21,9 +21,9 @@ function Home() {
   const [isFocused, setIsfocused] = useState<boolean>(false);
   const [keyword, setKeyword] = useState<string>('');
   const [data, setData] = useState([]);
-  const Api = useNetwork();
-  const ulRef = useRef<HTMLUListElement>(null);
   const [currentIndex, setCurrentIndex] = useState<number>(-1);
+  const ulRef = useRef<HTMLUListElement>(null);
+  const Api = useNetwork();
 
   const handleKeyArrow = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (data.length > 0) {
@@ -71,9 +71,6 @@ function Home() {
   useEffect(() => {
     cachedRequest = cachingData(requestData);
   }, []);
-
-  // 할 거
-  // 키보드로 검색어 이동
 
   return (
     <div className={styles.layout}>
