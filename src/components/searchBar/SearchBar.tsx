@@ -1,7 +1,7 @@
 import { focusIndex, sickName, sickState } from '../../store/atom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import styles from './SearchBar.module.css';
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { getSickList } from '../../lib/api/getSickList';
 
 function SearchBar() {
@@ -10,13 +10,18 @@ function SearchBar() {
   const [recoilFocusIndex, setRecoilFocusIndex] = useRecoilState(focusIndex);
 
   const changeSickName = async (e: ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setRecoilSickName(value);
-    const response = await getSickList(value);
-    if (response.length >= 7) {
-      response.length = 7;
+    try {
+      const { value } = e.target;
+      setRecoilSickName(value);
+      const response = await getSickList(value);
+      console.info('calling api');
+      if (response.length >= 7) {
+        response.length = 7;
+      }
+      setRecoilSickState(response);
+    } catch {
+      alert('데이터를 불러올 수 없습니다. 관리자에게 문의해주세요.');
     }
-    setRecoilSickState(response);
   };
 
   const clickSearchButton = () => {
@@ -44,7 +49,6 @@ function SearchBar() {
       setRecoilFocusIndex(-1);
     }
   };
-
   return (
     <div className={styles.container}>
       <div className={styles.searchIcon}>🔍</div>
