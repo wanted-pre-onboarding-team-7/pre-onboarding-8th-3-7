@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import axios from 'axios';
 import SearchBar from '../components/searchBar/SearchBar';
 import SearchResult from '../components/searchResult/SearchResult';
@@ -7,6 +7,7 @@ import styles from './Home.module.css';
 function Home() {
   const [keyword, setKeyword] = useState('');
   const [recommendKeyword, setRecommendKeyword] = useState([]);
+  console.log(keyword);
 
   let timer: any;
 
@@ -34,6 +35,29 @@ function Home() {
     }, 700);
   };
 
+  //키이벤트용
+  const [focusIdx, setFocusIdx] = useState(-1);
+  const focusRef = useRef<HTMLUListElement>(null);
+
+  const onKeyPressKeyword = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    switch (e.key) {
+      case 'ArrowDown':
+        // KeyEvent.ArrowDown();
+        console.log('아래');
+        setFocusIdx((idx) => idx + 1);
+        if (focusRef.current?.childElementCount === focusIdx + 1)
+          setFocusIdx(0);
+        break;
+      case 'ArrowUp':
+        console.log('위');
+        if (focusIdx === -1) {
+          return;
+        }
+        setFocusIdx((idx) => idx - 1);
+        break;
+    }
+  };
+
   return (
     <div className={styles.container}>
       <span>국내 모든 임상시험 검색하고 온라인으로 참여하기</span>
@@ -41,8 +65,20 @@ function Home() {
         keyword={keyword}
         setKeyword={setKeyword}
         debounce={debounce}
+        //여기부터
+        focusIdx={focusIdx}
+        setFocusIdx={setFocusIdx}
+        onKeyPressKeyword={onKeyPressKeyword}
+        focusRef={focusRef}
       />
-      <SearchResult keyword={keyword} recommendKeyword={recommendKeyword} />
+      <SearchResult
+        keyword={keyword}
+        recommendKeyword={recommendKeyword}
+        focusIdx={focusIdx}
+        setFocusIdx={setFocusIdx}
+        onKeyPressKeyword={onKeyPressKeyword}
+        focusRef={focusRef}
+      />
     </div>
   );
 }
