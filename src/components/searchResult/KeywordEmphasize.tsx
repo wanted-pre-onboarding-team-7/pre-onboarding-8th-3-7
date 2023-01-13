@@ -19,12 +19,12 @@ export const KeywordEmphasize = ({ keyword, sickNm, isFocus }: Props) => {
       <div>
         {splitSickNm.map((character, idx) =>
           idx + 1 !== splitSickNm.length ? (
-            <span>
+            <span key={idx}>
               {character}
               <strong>{keyword}</strong>
             </span>
           ) : (
-            <span>{character}</span>
+            <span key={idx}>{character}</span>
           ),
         )}
       </div>
