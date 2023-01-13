@@ -7,6 +7,8 @@ type Props = {
 };
 
 export const KeywordEmphasize = ({ keyword, sickNm, isFocus }: Props) => {
+  const splitSickNmByKeyword = sickNm.split(keyword);
+
   return (
     <li
       className={`${styles['recent-keyword']} ${
@@ -15,14 +17,14 @@ export const KeywordEmphasize = ({ keyword, sickNm, isFocus }: Props) => {
     >
       <span className={styles.keyword}>🔍</span>
       <div>
-        {sickNm.split(keyword).map((v, idx) =>
-          idx + 1 !== sickNm.split(keyword).length ? (
-            <>
-              <span>{v}</span>
+        {splitSickNmByKeyword.map((character, idx) =>
+          idx + 1 !== splitSickNmByKeyword.length ? (
+            <span>
+              {character}
               <strong>{keyword}</strong>
-            </>
+            </span>
           ) : (
-            <span>{v}</span>
+            <span>{character}</span>
           ),
         )}
       </div>
