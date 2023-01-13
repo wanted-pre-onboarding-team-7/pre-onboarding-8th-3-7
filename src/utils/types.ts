@@ -12,9 +12,9 @@ export type GetResultByKeyword = (keyword: string) => Results;
 export type Cache = Map<string, Results>;
 
 export interface CacheService {
-  httpClient: HttpClient;
-  cache: Cache;
-  keyword: string;
+  _httpClient: HttpClient;
+  _cache: Cache;
+  _keyword: string;
   getResultsByKeyword: GetResultByKeyword;
   _isCacheExist: () => boolean;
   _getCacheResults: () => Results;

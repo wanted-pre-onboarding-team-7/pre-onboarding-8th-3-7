@@ -1,16 +1,16 @@
 import { CacheService, HttpClient, Results } from '../utils/types';
 
 export class LocalCacheService implements CacheService {
-  httpClient;
-  cache;
-  keyword = '';
+  _httpClient;
+  _cache;
+  _keyword = '';
   constructor(httpClient: HttpClient) {
-    this.httpClient = httpClient;
-    this.cache = new Map();
+    this._httpClient = httpClient;
+    this._cache = new Map();
   }
 
   getResultsByKeyword(keyword: string) {
-    this.keyword = keyword;
+    this._keyword = keyword;
     if (this._isCacheExist()) {
       return this._getCacheResults();
     }
@@ -18,20 +18,17 @@ export class LocalCacheService implements CacheService {
   }
 
   _isCacheExist() {
-    return this.cache.has(this.keyword);
+    return this._cache.has(this._keyword);
   }
 
   _getCacheResults() {
-    return this.cache.get(this.keyword);
+    return this._cache.get(this._keyword);
   }
 
   _getApiResult() {
-    return this.httpClient
-      .get(this.keyword)
-      .then((newResults: Results) => {
-        this.cache.set(this.keyword, newResults);
-        return newResults;
-      })
-      .catch((e: any) => console.log(e));
+    return this._httpClient.get(this._keyword).then((newResults: Results) => {
+      this._cache.set(this._keyword, newResults);
+      return newResults;
+    });
   }
 }
