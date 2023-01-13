@@ -1,54 +1,20 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import styles from './Home.module.css';
 import SearchBar from '../components/searchBar/SearchBar';
 import SearchResult from '../components/searchResult/SearchResult';
-import { useNetwork } from '../context/NetworkContext';
-import { cachingData } from '../utils/DataCaching';
-
-let cachedRequest: (keyword: string) => Promise<any>;
-let timer: null | ReturnType<typeof setTimeout> = null;
-
-function debounce(callback: () => void, delay: number) {
-  if (timer) {
-    clearTimeout(timer);
-  }
-  timer = setTimeout(() => {
-    callback();
-  }, delay);
-}
+import useKeyboard from '../hooks/useKeyboard';
+import { Results } from '../utils/types';
+import useSearchKeyword from '../hooks/useSearchKeyword';
+import useDebounce from '../hooks/useDebounce';
 
 function Home() {
   const [isFocused, setIsfocused] = useState<boolean>(false);
   const [keyword, setKeyword] = useState<string>('');
-  const [data, setData] = useState([]);
-  const Api = useNetwork();
-  const ulRef = useRef<HTMLUListElement>(null);
-  const [currentIndex, setCurrentIndex] = useState<number>(-1);
-
-  const handleKeyArrow = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (data.length > 0) {
-      switch (e.key) {
-        case 'ArrowDown': //키보드 아래 키
-          setCurrentIndex(currentIndex + 1);
-          if (ulRef.current?.childElementCount === currentIndex + 1)
-            setCurrentIndex(0);
-          break;
-        case 'ArrowUp': //키보드 위에 키
-          setCurrentIndex(currentIndex - 1);
-          if (currentIndex <= 0) {
-            setCurrentIndex(ulRef.current!.childElementCount - 1);
-          }
-          break;
-      }
-    }
-  };
-
-  const requestData = async (keyword: string) => {
-    const response = await Api!.search(keyword);
-    const data = await response.data;
-
-    return data;
-  };
+  const [data, setData] = useState<Results>([]);
+  const [currentIndex, ulRef, handleKeyPress] = useKeyboard(
+    data.length,
+    setKeyword,
+  );
 
   const handleFocused = () => {
     setIsfocused(true);
@@ -60,20 +26,10 @@ function Home() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setKeyword(e.target.value);
-    debounce(async () => {
-      if (e.target.value === '') return;
-      const response = await cachedRequest(e.target.value);
-      setData(response);
-      console.info('calling api');
-    }, 450);
   };
 
-  useEffect(() => {
-    cachedRequest = cachingData(requestData);
-  }, []);
-
-  // 할 거
-  // 키보드로 검색어 이동
+  const { debouncedKeyword, isLoading } = useDebounce(keyword, 500);
+  useSearchKeyword(debouncedKeyword, setData);
 
   return (
     <div className={styles.layout}>
@@ -84,10 +40,11 @@ function Home() {
           온라인으로 참여하기
         </h1>
         <SearchBar
+          keyword={keyword}
           onFocus={handleFocused}
           onBlur={handleBlur}
           onChange={handleChange}
-          onKeyDown={handleKeyArrow}
+          onKeyDown={handleKeyPress}
         />
         {isFocused && (
           <SearchResult
@@ -95,6 +52,7 @@ function Home() {
             data={data}
             ulRef={ulRef}
             currentIndex={currentIndex}
+            isLoading={isLoading}
           />
         )}
       </div>
