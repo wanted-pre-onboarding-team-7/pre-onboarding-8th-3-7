@@ -1,4 +1,4 @@
-import { CacheService, HttpClient, Results } from '../utils/types';
+import { CacheService, HttpClient } from '../utils/types';
 
 export class LocalCacheService implements CacheService {
   _httpClient;
@@ -26,9 +26,8 @@ export class LocalCacheService implements CacheService {
   }
 
   _getApiResult() {
-    return this._httpClient.get(this._keyword).then((newResults: Results) => {
-      this._cache.set(this._keyword, newResults);
-      return newResults;
-    });
+    const newResults = this._httpClient.get(this._keyword);
+    this._cache.set(this._keyword, newResults);
+    return newResults;
   }
 }

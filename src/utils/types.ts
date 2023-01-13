@@ -18,7 +18,7 @@ export interface CacheService {
   getResultsByKeyword: GetResultByKeyword;
   _isCacheExist: () => boolean;
   _getCacheResults: () => Results;
-  _getApiResult: () => Results;
+  _getApiResult: () => Promise<AxiosResponse<Results>>;
 }
 
 export interface HttpClient {
