@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
 
 function useDebounce(value: string, delay: number) {
-  const [debouncedValue, setDebouncedValue] = useState(value);
+  const [debouncedKeyword, setDebouncedKeyword] = useState(value);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
     const timer = setTimeout(() => {
-      setDebouncedValue(value);
+      setDebouncedKeyword(value);
+      setIsLoading(false);
     }, delay);
 
     return () => {
@@ -13,7 +16,7 @@ function useDebounce(value: string, delay: number) {
     };
   }, [value, delay]);
 
-  return debouncedValue;
+  return { debouncedKeyword, isLoading };
 }
 
 export default useDebounce;

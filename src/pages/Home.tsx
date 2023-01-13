@@ -29,14 +29,14 @@ function Home() {
     setIsfocused(false);
   };
 
-  const debouncedKeyword = useDebounce(keyword, 1500);
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setKeyword(e.target.value);
   };
 
+  const { debouncedKeyword, isLoading } = useDebounce(keyword, 500);
+
   const searchKeyword = async (keyword: string) => {
-    if (keyword === '') return;
+    if (keyword.trim() === '') return;
     const response = await cachedRequest(keyword);
     setData(response);
     console.info('calling api');
@@ -48,9 +48,6 @@ function Home() {
   useEffect(() => {
     cachedRequest = cachingData(requestData);
   }, []);
-
-  // 할 거
-  // 키보드로 검색어 이동
 
   return (
     <div className={styles.layout}>
@@ -65,7 +62,9 @@ function Home() {
           onBlur={handleBlur}
           onChange={handleChange}
         />
-        {isFocused && <SearchResult keyword={keyword} data={data} />}
+        {isFocused && (
+          <SearchResult keyword={keyword} data={data} isLoading={isLoading} />
+        )}
       </div>
     </div>
   );
