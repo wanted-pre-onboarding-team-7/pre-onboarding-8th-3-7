@@ -6,8 +6,5 @@
     "main.45399f8c.css.map": "/pre-onboarding-8th-3-7/static/css/main.45399f8c.css.map",
     "main.c2d65f2f.js.map": "/pre-onboarding-8th-3-7/static/js/main.c2d65f2f.js.map"
   },
-  "entrypoints": [
-    "static/css/main.45399f8c.css",
-    "static/js/main.c2d65f2f.js"
-  ]
+  "entrypoints": ["static/css/main.45399f8c.css", "static/js/main.c2d65f2f.js"]
 }
