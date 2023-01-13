@@ -2,21 +2,22 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import { NetworkContext } from './context/NetworkContext';
-import NetworkService from './service/NetworkService';
-import HttpClient from './httpClient/HttpClient';
+import AxiosClient from './api/AxiosClient';
+import { SearchApiProvider } from './context/SearchApiService';
+import { LocalCacheService } from './api/LocalCacheService';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
 
-const httpClient = new HttpClient('http://localhost:4000');
-const Api = new NetworkService(httpClient);
+const BASE_URL: string = 'http://localhost:4000/sick';
+const httpClient = new AxiosClient(BASE_URL);
+const cacheService = new LocalCacheService(httpClient);
 
 root.render(
   <React.StrictMode>
-    <NetworkContext.Provider value={Api}>
+    <SearchApiProvider cacheService={cacheService}>
       <App />
-    </NetworkContext.Provider>
+    </SearchApiProvider>
   </React.StrictMode>,
 );

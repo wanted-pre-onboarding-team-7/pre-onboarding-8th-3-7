@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styles from './Home.module.css';
 import SearchBar from '../components/searchBar/SearchBar';
 import SearchResult from '../components/searchResult/SearchResult';
-import { useNetwork } from '../context/NetworkContext';
-import { cachingData } from '../utils/DataCaching';
 import useKeyboard from '../hooks/useKeyboard';
+import { useSearchApi } from '../context/SearchApiService';
+import { Results } from '../utils/types';
 
-let cachedRequest: (keyword: string) => Promise<any>;
 let timer: null | ReturnType<typeof setTimeout> = null;
 
 function debounce(callback: () => void, delay: number) {
@@ -21,19 +20,13 @@ function debounce(callback: () => void, delay: number) {
 function Home() {
   const [isFocused, setIsfocused] = useState<boolean>(false);
   const [keyword, setKeyword] = useState<string>('');
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<Results>([]);
   const [currentIndex, ulRef, handleKeyPress] = useKeyboard(
     data.length,
     setKeyword,
   );
-  const Api = useNetwork();
 
-  const requestData = async (keyword: string) => {
-    const response = await Api!.search(keyword);
-    const data = await response.data;
-
-    return data;
-  };
+  const searchApi = useSearchApi();
 
   const handleFocused = () => {
     setIsfocused(true);
@@ -47,15 +40,10 @@ function Home() {
     setKeyword(e.target.value);
     debounce(async () => {
       if (e.target.value === '') return;
-      const response = await cachedRequest(e.target.value);
+      const response = await searchApi.getResultsByKeyword(e.target.value);
       setData(response);
-      console.info('calling api');
     }, 450);
   };
-
-  useEffect(() => {
-    cachedRequest = cachingData(requestData);
-  }, []);
 
   return (
     <div className={styles.layout}>
