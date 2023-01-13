@@ -4,13 +4,14 @@ type KeyboardProps = [
   currentIndex: number,
   ulRef: React.RefObject<HTMLUListElement>,
   handleKeyPress: (event: React.KeyboardEvent<HTMLInputElement>) => void,
+  setCurrentIndex: React.Dispatch<React.SetStateAction<number>>,
 ];
 
 export default function useKeyboard(
   dataLength: number,
   setKeyword: React.Dispatch<React.SetStateAction<string>>,
 ): KeyboardProps {
-  const [currentIndex, setCurrentIndex] = useState<number>(-1);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
   const ulRef = useRef<HTMLUListElement>(null);
 
   const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -28,6 +29,7 @@ export default function useKeyboard(
           }
           break;
         case 'Enter':
+          setCurrentIndex(0);
           setKeyword(
             ulRef.current?.children[currentIndex].textContent?.substring(
               2,
@@ -38,5 +40,5 @@ export default function useKeyboard(
     }
   };
 
-  return [currentIndex, ulRef, handleKeyPress];
+  return [currentIndex, ulRef, handleKeyPress, setCurrentIndex];
 }

@@ -11,7 +11,7 @@ function Home() {
   const [isFocused, setIsfocused] = useState<boolean>(false);
   const [keyword, setKeyword] = useState<string>('');
   const [data, setData] = useState<Results>([]);
-  const [currentIndex, ulRef, handleKeyPress] = useKeyboard(
+  const [currentIndex, ulRef, handleKeyPress, setCurrentIndex] = useKeyboard(
     data.length,
     setKeyword,
   );
@@ -26,6 +26,7 @@ function Home() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setKeyword(e.target.value);
+    setCurrentIndex(0);
   };
 
   const { debouncedKeyword, isLoading } = useDebounce(keyword, 500);
