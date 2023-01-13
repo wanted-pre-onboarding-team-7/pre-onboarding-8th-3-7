@@ -3,19 +3,9 @@ import styles from './Home.module.css';
 import SearchBar from '../components/searchBar/SearchBar';
 import SearchResult from '../components/searchResult/SearchResult';
 import useKeyboard from '../hooks/useKeyboard';
-import { useSearchApi } from '../context/SearchApiService';
 import { Results } from '../utils/types';
-
-let timer: null | ReturnType<typeof setTimeout> = null;
-
-function debounce(callback: () => void, delay: number) {
-  if (timer) {
-    clearTimeout(timer);
-  }
-  timer = setTimeout(() => {
-    callback();
-  }, delay);
-}
+import useSearchKeyword from '../hooks/useSearchKeyword';
+import useDebounce from '../hooks/useDebounce';
 
 function Home() {
   const [isFocused, setIsfocused] = useState<boolean>(false);
@@ -25,8 +15,6 @@ function Home() {
     data.length,
     setKeyword,
   );
-
-  const searchApi = useSearchApi();
 
   const handleFocused = () => {
     setIsfocused(true);
@@ -38,12 +26,10 @@ function Home() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setKeyword(e.target.value);
-    debounce(async () => {
-      if (e.target.value === '') return;
-      const response = await searchApi.getResultsByKeyword(e.target.value);
-      setData(response);
-    }, 450);
   };
+
+  const { debouncedKeyword, isLoading } = useDebounce(keyword, 500);
+  useSearchKeyword(debouncedKeyword, setData);
 
   return (
     <div className={styles.layout}>
@@ -66,6 +52,7 @@ function Home() {
             data={data}
             ulRef={ulRef}
             currentIndex={currentIndex}
+            isLoading={isLoading}
           />
         )}
       </div>

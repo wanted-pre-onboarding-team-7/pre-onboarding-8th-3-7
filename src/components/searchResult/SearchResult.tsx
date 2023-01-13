@@ -13,6 +13,7 @@ type SearchResultProps = {
   data: dataType[];
   ulRef: React.RefObject<HTMLUListElement>;
   currentIndex: number;
+  isLoading: boolean;
 };
 
 function SearchResult({
@@ -20,6 +21,7 @@ function SearchResult({
   data,
   ulRef,
   currentIndex,
+  isLoading,
 }: SearchResultProps) {
   return (
     <div className={styles.container}>
@@ -29,6 +31,7 @@ function SearchResult({
           ulRef={ulRef}
           currentIndex={currentIndex}
           keyword={keyword}
+          isLoading={isLoading}
         />
       ) : (
         <NoSearchKeyword />
