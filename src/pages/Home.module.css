@@ -1,6 +1,7 @@
 .layout {
   background: #cae9ff;
   height: 100vh;
+  min-width: 990px;
   display: flex;
   flex-direction: column;
   align-items: center;
