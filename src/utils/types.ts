@@ -1,4 +1,4 @@
-import { AxiosInstance } from 'axios';
+import { AxiosInstance, AxiosResponse } from 'axios';
 
 export interface Result {
   sickCd: string;
@@ -25,5 +25,5 @@ export interface HttpClient {
   instance: AxiosInstance;
   count: number;
   _responseMiddleware: () => void;
-  get: (url: string) => any; //FIXME: 타입 추가
+  get: (keyword: string) => Promise<AxiosResponse>; //FIXME: 타입 추가
 }
