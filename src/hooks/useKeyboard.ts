@@ -29,7 +29,7 @@ export default function useKeyboard(
           }
           break;
         case 'Enter':
-          setCurrentIndex(0);
+          setCurrentIndex(-1);
           setKeyword(
             ulRef.current?.children[currentIndex].textContent?.substring(
               2,

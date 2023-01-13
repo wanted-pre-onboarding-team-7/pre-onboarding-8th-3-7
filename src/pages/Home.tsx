@@ -26,7 +26,7 @@ function Home() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setKeyword(e.target.value);
-    setCurrentIndex(0);
+    setCurrentIndex(-1);
   };
 
   const { debouncedKeyword, isLoading } = useDebounce(keyword, 500);
