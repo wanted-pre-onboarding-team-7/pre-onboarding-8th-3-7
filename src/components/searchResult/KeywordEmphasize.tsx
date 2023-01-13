@@ -7,7 +7,7 @@ type Props = {
 };
 
 export const KeywordEmphasize = ({ keyword, sickNm, isFocus }: Props) => {
-  const splitSickNmByKeyword = sickNm.split(keyword);
+  const splitSickNm = sickNm.split(keyword);
 
   return (
     <li
@@ -17,8 +17,8 @@ export const KeywordEmphasize = ({ keyword, sickNm, isFocus }: Props) => {
     >
       <span className={styles.keyword}>🔍</span>
       <div>
-        {splitSickNmByKeyword.map((character, idx) =>
-          idx + 1 !== splitSickNmByKeyword.length ? (
+        {splitSickNm.map((character, idx) =>
+          idx + 1 !== splitSickNm.length ? (
             <span>
               {character}
               <strong>{keyword}</strong>
