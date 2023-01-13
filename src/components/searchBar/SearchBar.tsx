@@ -2,13 +2,20 @@ import React from 'react';
 import styles from './SearchBar.module.css';
 
 type SearchProps = {
+  keyword: string;
   onFocus: (event: React.FocusEvent<HTMLInputElement>) => void;
   onBlur: (event: React.FocusEvent<HTMLInputElement>) => void;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 };
 
-function SearchBar({ onFocus, onBlur, onChange, onKeyDown }: SearchProps) {
+function SearchBar({
+  keyword,
+  onFocus,
+  onBlur,
+  onChange,
+  onKeyDown,
+}: SearchProps) {
   //TODO: 검색창 기능 구현
 
   return (
@@ -16,6 +23,7 @@ function SearchBar({ onFocus, onBlur, onChange, onKeyDown }: SearchProps) {
       <div className={styles['input-container']}>
         <input
           className={styles['search-input']}
+          value={keyword}
           type="text"
           placeholder="질환명을 입력해 주세요."
           onFocus={onFocus}
